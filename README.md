@@ -17,6 +17,8 @@ The app startup time would be slightly longer because of mono initialization. Bu
 
 ## Demo
 
+Build all projects with Release config. 
+
 Install both `XamarinPosed` and `Xamarin.Posed.Demo` to your phone. Enable the `Xamarin.Posed` module. (Don't try to open it after enabled.)
 
 Open `Xamarin.Posed.Demo` ([Monarch Solutions](https://github.com/MonarchSolutions) logo), click the FloatingActionButton (bottom-right), then click `ACTION`.

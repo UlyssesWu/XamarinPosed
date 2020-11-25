@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JavaCodePostProcessor", "JavaCodePostProcessor\JavaCodePostProcessor.csproj", "{9AD09DF6-F133-4210-B4A1-0FEBCF8537FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinPosed", "XamarinPosed\XamarinPosed.csproj", "{8406AD08-972D-4D0C-8369-69D9D94CD782}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9AD09DF6-F133-4210-B4A1-0FEBCF8537FE} = {9AD09DF6-F133-4210-B4A1-0FEBCF8537FE}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Posed.Demo", "Xamarin.Posed.Demo\Xamarin.Posed.Demo.csproj", "{2C0F056B-77B6-4135-9637-06CE89355226}"
 EndProject
