@@ -18,7 +18,7 @@ public class XamarinPosedLoader
 	implements
 		//mono.android.IGCUserPeer,
 		de.robv.android.xposed.IXposedHookLoadPackage,
-		de.robv.android.xposed.IXposedHookZygoteInit
+		de.robv.android.xposed.IXposedHookZygoteInit,
 		de.robv.android.xposed.IXposedHookInitPackageResources
 {
 /** @hide */
