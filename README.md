@@ -25,7 +25,7 @@ Open `Xamarin.Posed.Demo` ([Monarch Solutions](https://github.com/MonarchSolutio
 
 If the  `Xamarin.Posed` module is working, you will get a toast showing `All your base are belong to us!`. Otherwise, nothing happens.
 
-![XamarinPosed!](https://github.com/UlyssesWu/XamarinPosed/blob/master/img/XamarinPosed_demo.jpg)
+<img src="https://github.com/UlyssesWu/XamarinPosed/blob/main/img/XamarinPosed_demo.jpg" width="500">
 
 ## Related Projects
 
@@ -33,7 +33,7 @@ If the  `Xamarin.Posed` module is working, you will get a toast showing `All you
 
 This project is a good start for research, however it won't work, since it only get over the very first problem - Jar Binding.
 
-There is still a lot of work to do after that, as you can see from XamarinPosed.
+There is still a lot of work to do after that, as you can learn from XamarinPosed.
 
 ## License
 
