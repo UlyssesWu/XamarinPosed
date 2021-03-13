@@ -72,12 +72,13 @@ public class XamarinPosedLoader
 			sourceDirs[0] = modulePath;
 
 			String[] initParams = {filesDir, cacheDir, nativeLibraryPath};
-			String[] externalOverrrideParams = {externalOverrridePath, externalOverrridePathLegacy};
+			String[] externalOverrrideParams = {externalOverrridePath, externalOverrridePathLegacy}; //deprecated
 
 			if (BuildConfig.Debug) 
 			{
 				System.loadLibrary("xamarin-debug-app-helper");
-				DebugRuntime.init(sourceDirs, nativeLibraryPath2, initParams, externalOverrrideParams);
+				//DebugRuntime.init(sourceDirs, nativeLibraryPath2, initParams, externalOverrrideParams);
+				DebugRuntime.init(sourceDirs, nativeLibraryPath2, initParams);
 			} 
 			else 
 			{
@@ -94,7 +95,8 @@ public class XamarinPosedLoader
 			}
 
 			System.loadLibrary("monodroid");
-			Runtime.initInternal(localeStr, sourceDirs, nativeLibraryPath2, initParams, classLoader, externalOverrrideParams, MonoPackageManager_Resources.Assemblies, Build.VERSION.SDK_INT, isEmulator());
+			//Runtime.initInternal(localeStr, sourceDirs, nativeLibraryPath2, initParams, classLoader, externalOverrrideParams, MonoPackageManager_Resources.Assemblies, Build.VERSION.SDK_INT, isEmulator());
+			Runtime.initInternal(localeStr, sourceDirs, nativeLibraryPath2, initParams, classLoader, MonoPackageManager_Resources.Assemblies, Build.VERSION.SDK_INT, isEmulator());
 			ApplicationRegistration.registerApplications();
 
 			// /data/data/com.my.app/files
