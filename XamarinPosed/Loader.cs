@@ -28,6 +28,36 @@ namespace XamarinPosed
                 PackageName = packageName;
             }
 
+            /// <summary>
+            /// Write your logic here
+            /// </summary>
+            /// <param name="param"></param>
+            public void HandleLoadPackage(XC_LoadPackage.LoadPackageParam param)
+            {
+                DetectAndFixXamarinApp(param); //This is required for Xamarin app compatibility
+                XposedBridge.Log("XamarinPosed HandleLoadPackage: " + param.PackageName);
+                //This is a demo, remove it
+                HookMyself(param);
+            }
+
+            /// <summary>
+            /// Write your logic here
+            /// </summary>
+            /// <param name="param"></param>
+            public void InitZygote(XposedHookZygoteInitStartupParam param)
+            {
+                XposedBridge.Log("XamarinPosed InitZygote: " + param.ModulePath);
+            }
+
+            /// <summary>
+            /// Write your logic here
+            /// </summary>
+            /// <param name="param"></param>
+            public void HandleInitPackageResources(XC_InitPackageResources.InitPackageResourcesParam param)
+            {
+                XposedBridge.Log("XamarinPosed HandleInitPackageResources: " + param.PackageName);
+            }
+
             private bool DetectAndFixXamarinApp(XC_LoadPackage.LoadPackageParam param)
             {
                 var nativeDir = param.AppInfo.NativeLibraryDir;
@@ -56,23 +86,6 @@ namespace XamarinPosed
                 return false;
             }
 
-            public void HandleLoadPackage(XC_LoadPackage.LoadPackageParam param)
-            {
-                DetectAndFixXamarinApp(param); //This is required for Xamarin app compatibility
-                XposedBridge.Log("XamarinPosed HandleLoadPackage: " + param.PackageName);
-                //This is a demo, remove it
-                HookMyself(param);
-            }
-
-            public void InitZygote(XposedHookZygoteInitStartupParam param)
-            {
-                XposedBridge.Log("XamarinPosed InitZygote: " + param.ModulePath);
-            }
-
-            public void HandleInitPackageResources(XC_InitPackageResources.InitPackageResourcesParam param)
-            {
-                XposedBridge.Log("XamarinPosed HandleInitPackageResources: " + param.PackageName);
-            }
 
             private static bool isThisAppHooked = false;
 
