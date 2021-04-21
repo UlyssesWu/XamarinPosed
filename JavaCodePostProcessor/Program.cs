@@ -36,16 +36,21 @@ namespace XamarinPosed.JavaCodePostProcessor
                 return -1; // built obj not found
             }
 
-            var targetDir = Path.Combine(verDirs[0], "android", "src", "xamarin", "posed");
-
-            Directory.CreateDirectory(targetDir);
-            var target = Path.Combine(targetDir, FinalFileName);
             var disableResourceHook = defines.Contains("VXP;");
             Console.WriteLine($"VXP mode: {disableResourceHook}");
-            var sourceFileName = disableResourceHook ? LoaderFileName : FullLoaderFileName;
-            File.Copy(Path.Combine(projectDir, "..", "java", sourceFileName), target, true);
 
-            Console.WriteLine($"Output {target}");
+            foreach (var verDir in verDirs)
+            {
+                var targetDir = Path.Combine(verDir, "android", "src", "xamarin", "posed");
+
+                Directory.CreateDirectory(targetDir);
+                var target = Path.Combine(targetDir, FinalFileName);
+
+                var sourceFileName = disableResourceHook ? LoaderFileName : FullLoaderFileName;
+                File.Copy(Path.Combine(projectDir, "..", "java", sourceFileName), target, true);
+
+                Console.WriteLine($"Output {target}");
+            }
 
             return 0;
         }
