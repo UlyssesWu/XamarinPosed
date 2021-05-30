@@ -3,6 +3,8 @@ package xamarin.posed;
 
 import java.util.Locale;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import mono.android.BuildConfig;
 import mono.android.DebugRuntime;
 import mono.android.Runtime;
