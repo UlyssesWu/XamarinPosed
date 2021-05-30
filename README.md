@@ -7,13 +7,10 @@ This project is still in development, but it works - you can try it now!
 I only test it on VirtualXposed. If it won't work on Xposed, please help me fix it.
 
 ## Limitations
-
-The module app will be unable to open directly after you enable it as a Xposed module. 
-That's because the same native libraries are already loaded by the module's ClassLoader, so the APK's ClassLoader won't be able to use them.
-
-Still looking for a solution.
-
 The app startup time would be slightly longer because of mono initialization. But hey, who cares? Welcome to the .NET world.
+
+For VirtualXposed: The module app will be unable to open directly after you enable it as a Xposed module. 
+That's because the same native libraries are already loaded by the module's ClassLoader, so the APK's ClassLoader won't be able to use them.
 
 ## Usage
 Please use the newest stable version of Visual Studio and Xamarin.
@@ -25,7 +22,6 @@ Clone this repo and implement your `InitZygote`, `HandleLoadPackage`, `HandleIni
 Build `XamarinPosed` project with release config. It will be a Xposed module apk. 
 
 ## Demo
-
 Build all projects with Release config. 
 
 Install both `XamarinPosed` and `Xamarin.Posed.Demo` to your phone. Enable the `Xamarin.Posed` module. (Don't try to open it after enabled.)
