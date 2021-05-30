@@ -34,6 +34,14 @@ If the  `Xamarin.Posed` module is working, you will get a toast showing `All you
 
 <img src="https://github.com/UlyssesWu/XamarinPosed/blob/main/img/XamarinPosed_demo.jpg" width="500">
 
+## Hints
+### How to change xposed module name?
+XamarinPosed Project Properties - Android Manifest - change package name to what you want
+
+### How to enable Resource hook?
+Since resource hook is not supported by VirtualXposed, it's disabled by default. To enable it:
+XamarinPosed Project Properties - Build - Conditional Compilation Symbols - remove "VXP"
+
 ## Related Projects
 
 [Xamarin.Android.Xposed](https://github.com/Redth/Xamarin.Android.Xposed)
