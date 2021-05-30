@@ -20,6 +20,8 @@ Please use the newest stable version of Visual Studio and Xamarin.
 
 Clone this repo and implement your `InitZygote`, `HandleLoadPackage`, `HandleInitPackageResources` in `XamarinPosed\XamarinPosed\Loader.cs`.
 
+(`HandleInitPackageResources` is disabled by default. To enable it, remove "VXP" from XaraminPosed Properties - Conditional Compilation Symbols)
+
 Build `XamarinPosed` project with release config. It will be a Xposed module apk. 
 
 ## Demo
@@ -36,10 +38,11 @@ If the  `Xamarin.Posed` module is working, you will get a toast showing `All you
 
 ## Hints
 ### How to change xposed module name?
-XamarinPosed Project Properties - Android Manifest - change package name to what you want
+XamarinPosed Project Properties - Android Manifest - change package name to whatever you want
 
 ### How to enable Resource hook?
 Since resource hook is not supported by VirtualXposed, it's disabled by default. To enable it:
+
 XamarinPosed Project Properties - Build - Conditional Compilation Symbols - remove "VXP"
 
 ## Related Projects
