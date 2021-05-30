@@ -3,6 +3,8 @@ package xamarin.posed;
 
 import java.util.Locale;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import mono.android.BuildConfig;
 import mono.android.DebugRuntime;
 import mono.android.Runtime;
@@ -47,22 +49,43 @@ public class XamarinPosedLoader
 			Locale locale = Locale.getDefault();
 			String localeStr = locale.getLanguage() + "-" + locale.getCountry();
 
-			String f1 = modulePath.replaceFirst("/app/", "/user/0/");
-			String filesDir = f1.substring(0, f1.lastIndexOf("/"));
-			//String filesDir = context.getFilesDir().getAbsolutePath(); // /data/user/0/io.va.xposed/virtual/data/user/0/{package}/
-			String packageName = filesDir.substring(filesDir.lastIndexOf("/") + 1);
+			Path currentModulePath = Paths.get(modulePath);
+			String parent = currentModulePath.getParent().getFileName().toString();
+			String packageName = parent;
+			int subPos = parent.lastIndexOf("-");
+			if (subPos > 0)
+			{
+				packageName = parent.substring(0, subPos);
+			}
+			Log.i("XamarinPosed", "packageName: " + packageName);
 
-			String cacheDir = filesDir + "/" + "cache";
+			File externalStorageDirectory = Environment.getExternalStorageDirectory();
+			File filesDirFile = new File(externalStorageDirectory, "Android/data/" + packageName + "/files");
+			File cachesDirFile = new File(externalStorageDirectory, "Android/data/" + packageName + "/files/cache");
+			cachesDirFile.mkdirs();
+			String filesDir = filesDirFile.getAbsolutePath();
+			Log.i("XamarinPosed", "filesDir: " + filesDir);
+			//String filesDir = context.getFilesDir().getAbsolutePath(); // /data/user/0/io.va.xposed/virtual/data/user/0/{package}/
+
+			String cacheDir = cachesDirFile.getAbsolutePath();
 			//String cacheDir = context.getCacheDir().getAbsolutePath(); // filesDir + "cache"
 			String dataAppDir = modulePath.substring(0, modulePath.lastIndexOf("/"));
 			String nativeLibraryPath = dataAppDir + "/lib"; // getNativeLibraryPath(context);
 			//tring nativeLibraryPath = getNativeLibraryPath(context); //{baseApkDir}/../lib
 			
+			File nativeLibraryPathFile = new File(nativeLibraryPath);			
+			for (File f : nativeLibraryPathFile.listFiles())
+			{
+				if(f.isDirectory())
+				{
+					nativeLibraryPath = f.getAbsolutePath();
+					break;
+				}
+			}
+
 			ClassLoader classLoader = this.getClass().getClassLoader();
 			//TODO: hook context.getClassLoader() and replaced to this classLoader
 			//ClassLoader classLoader = de.robv.android.xposed.XposedBridge.BOOTCLASSLOADER;
-            File externalStorageDirectory = Environment.getExternalStorageDirectory();
-
 			String externalOverrridePath = new File(externalStorageDirectory, "Android/data/" + packageName + "/files/.__override__").getAbsolutePath();
 			String externalOverrridePathLegacy = new File(externalStorageDirectory, "../legacy/Android/data/" + packageName + "/files/.__override__").getAbsolutePath();
 
@@ -74,31 +97,47 @@ public class XamarinPosedLoader
 			String[] initParams = {filesDir, cacheDir, nativeLibraryPath};
 			String[] externalOverrrideParams = {externalOverrridePath, externalOverrridePathLegacy}; //deprecated
 
-			if (BuildConfig.Debug) 
+			Log.i("XamarinPosed", "nativeLibraryPath: " + nativeLibraryPath2);
+			String nativeLibraryPath3 = nativeLibraryPath + "/";
+			try
 			{
-				System.loadLibrary("xamarin-debug-app-helper");
-				//DebugRuntime.init(sourceDirs, nativeLibraryPath2, initParams, externalOverrrideParams);
-				DebugRuntime.init(sourceDirs, nativeLibraryPath2, initParams);
-			} 
-			else 
-			{
-				System.loadLibrary("monosgen-2.0");
+				if (BuildConfig.Debug) 
+				{
+					System.load(nativeLibraryPath3 + "libxamarin-debug-app-helper.so");
+					//DebugRuntime.init(sourceDirs, nativeLibraryPath2, initParams, externalOverrrideParams);
+					DebugRuntime.init(sourceDirs, nativeLibraryPath2, initParams);
+				} 
+				else 
+				{
+					System.load(nativeLibraryPath3 + "libmonosgen-2.0.so");
+				}
 			}
-			System.loadLibrary("xamarin-app");
+			catch (UnsatisfiedLinkError e) 
+			{
+				Log.e("XamarinPosed", "Failed to load mono lib, could be architecture mismatch (64bit module vs 32bit app or vice versa)", e);
+				isInited = false;
+				return;
+			}
+
+			System.load(nativeLibraryPath3 + "libxamarin-app.so");
 			try 
 			{
-				System.loadLibrary("mono-native");
+				System.load(nativeLibraryPath3 + "libmono-native.so");
 			} 
 			catch (UnsatisfiedLinkError e) 
 			{
 				Log.i("monodroid", "Failed to preload libmono-native.so (may not exist), ignoring", e);
 			}
 
-			System.loadLibrary("monodroid");
+			System.load(nativeLibraryPath3 + "libmonodroid.so");
+			System.load(nativeLibraryPath3 + "libmono-btls-shared.so");
+			System.load(nativeLibraryPath3 + "libxa-internal-api.so");
+			Log.i("XamarinPosed", "load lib done");
 			//Runtime.initInternal(localeStr, sourceDirs, nativeLibraryPath2, initParams, classLoader, externalOverrrideParams, MonoPackageManager_Resources.Assemblies, Build.VERSION.SDK_INT, isEmulator());
 			Runtime.initInternal(localeStr, sourceDirs, nativeLibraryPath2, initParams, classLoader, MonoPackageManager_Resources.Assemblies, Build.VERSION.SDK_INT, isEmulator());
 			ApplicationRegistration.registerApplications();
-
+			Log.i("XamarinPosed", "init internal done");
+			
 			// /data/data/com.my.app/files
 			_loader = new xamarin.posed.Main_Loader();
 			//_loader = new xamarin.posed.Main_Loader(modulePath, packageName);
@@ -108,7 +147,7 @@ public class XamarinPosedLoader
 		if (isInited && _loader != null)
 		{
 			_loader.initZygote (p0);
-		}		
+		}
 	}
 
 	public void handleInitPackageResources (de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam p0)

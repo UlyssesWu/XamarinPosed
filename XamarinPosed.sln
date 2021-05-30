@@ -14,6 +14,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinPosed", "XamarinPose
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Posed.Demo", "Xamarin.Posed.Demo\Xamarin.Posed.Demo.csproj", "{2C0F056B-77B6-4135-9637-06CE89355226}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F6CCFE68-4609-44AB-930E-7D5B4C27D5CC}"
+	ProjectSection(SolutionItems) = preProject
+		java\UlyssesFullLoader.java = java\UlyssesFullLoader.java
+		java\UlyssesLoader.java = java\UlyssesLoader.java
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using DE.Robv.Android.Xposed;
@@ -35,6 +36,7 @@ namespace XamarinPosed
             public void HandleLoadPackage(XC_LoadPackage.LoadPackageParam param)
             {
                 DetectAndFixXamarinApp(param); //This is required for Xamarin app compatibility
+                Log.Info("XamarinPosed", "XamarinPosed HandleLoadPackage: " + param.PackageName);
                 XposedBridge.Log("XamarinPosed HandleLoadPackage: " + param.PackageName);
                 //This is a demo, remove it
                 HookMyself(param);

@@ -61,6 +61,7 @@
       JavaCodePostProcess;
     </AfterGenerateAndroidManifest>
     <PostProcessArgProjectDir>"$(ProjectDir)"</PostProcessArgProjectDir>
+    <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a</AndroidSupportedAbis>
   </PropertyGroup>
   <Target Name="JavaCodePostProcess">
     <Exec Command="&quot;$(SolutionDir)JavaCodePostProcessor\bin\$(ConfigurationName)\net5.0\JavaCodePostProcessor.exe&quot; $(ConfigurationName) $(PostProcessArgProjectDir) $(DefineConstants)" ConsoleToMSBuild="true">
