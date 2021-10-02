@@ -49,6 +49,10 @@ This project is a good start for research, however it won't work, since it only 
 
 There is still a lot of work to do after that, as you can learn from XamarinPosed.
 
+[VirtualXposed](https://github.com/android-hacker/VirtualXposed)
+
+[Xpatch](https://github.com/WindySha/Xpatch)
+
 ## License
 
 XamarinPosed is licensed under **MIT** license.
