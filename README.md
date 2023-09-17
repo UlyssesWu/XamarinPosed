@@ -1,8 +1,8 @@
 # XamarinPosed
 
-Write Xposed module with Xamarin and C# 🐱‍💻
+This is the legacy version. For the newest version with .NET 7+ support, please check [**XamarinPosed.Core**](https://github.com/UlyssesWu/XamarinPosed.Core) !
 
-This project is still in development, but it works - you can try it now!
+Write Xposed module with Xamarin and C# 🐱‍💻
 
 I only test it on VirtualXposed. If it won't work on Xposed, please help me fix it.
 
